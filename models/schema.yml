@@ -1,0 +1,31 @@
+version: 2
+
+models:
+
+  - name: missing_fields_on_collections
+#    description: <markdown_string>
+    config: {}
+
+  - name: missing_fields_on_materials
+    #    description: <markdown_string>
+    config: {}
+
+  - name: keywords_on_collections
+    #    description: <markdown_string>
+    config: {}
+
+  - name: keywords_on_materials
+    #    description: <markdown_string>
+    config: {}
+
+  - name: licenses_on_materials
+    #    description: <markdown_string>
+    config: {}
+
+  - name: educontexts_on_materials
+    #    description: <markdown_string>
+    config: {}
+
+  - name: learningresourcetypes_on_materials
+    #    description: <markdown_string>
+    config: {}
