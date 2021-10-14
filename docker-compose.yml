@@ -1,0 +1,22 @@
+version: "3.8"
+
+networks:
+  default:
+    external: true
+    name: superset_default
+
+services:
+
+  dbt:
+    build: ./
+    image: community.docker.edu-sharing.com/dbt:latest
+    container_name: dbt
+    environment:
+      - DB_HOST=superset_db
+      - DB_PORT=5432
+      - DB_USER=superset
+      - DB_PASSWORD=superset
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./:/dbt

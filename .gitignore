@@ -1,0 +1,7 @@
+_models/
+_seeds/
+target/
+dbt_modules/
+logs/
+.idea/
+**/.DS_Store
