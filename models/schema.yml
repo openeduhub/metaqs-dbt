@@ -29,3 +29,7 @@ models:
   - name: learningresourcetypes_on_materials
     #    description: <markdown_string>
     config: {}
+
+  - name: links_on_material_descriptions
+    #    description: <markdown_string>
+    config: {}
