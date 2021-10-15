@@ -20,3 +20,19 @@ services:
       - "8001:8001"
     volumes:
       - ./:/dbt
+
+  dbt-docs:
+    image: community.docker.edu-sharing.com/dbt:latest
+    container_name: dbt-docs
+    environment:
+      - DB_HOST=superset_db
+      - DB_PORT=5432
+      - DB_USER=superset
+      - DB_PASSWORD=superset
+    volumes:
+      - ./:/dbt
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - dbt docs generate && dbt docs serve
