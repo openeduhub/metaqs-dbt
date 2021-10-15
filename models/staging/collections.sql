@@ -1,13 +1,13 @@
-{%
+{%-
 set language_code_map = [
     ('86b990ef-0955-45ad-bdae-ec2623cf0e1a', 'fr'),
     ('11bdb8a0-a9f5-4028-becc-cbf8e328dd4b', 'es'),
     ('15dbd166-fd31-4e01-aabd-524cfa4d2783', 'en-US'),
     ('26105802-9039-4add-bf21-07a0f89f6e70', 'tr'),
 ]
-%}
+-%}
 
-{%
+{%-
 set portal_title_map = [
     ('Deutsch als Zweitsprache', 'DaZ'),
     ('Darstellendes Spiel', 'Darst. Spiel'),
@@ -15,7 +15,7 @@ set portal_title_map = [
     ('Zeitgemäße Bildung', 'Zeitgm. Bildung'),
     ('Open Educational Resources (OER)', 'OER'),
 ]
-%}
+-%}
 
 with processed_collections as (
 
@@ -30,7 +30,10 @@ with processed_collections as (
 
 ), portal_root_path as (
 
-    {{ portal_root_path() }}
+    select c.path || uuid2ltree(c.id) path
+         , nlevel(c.path) + 1       nlevel
+    from {{ source('wlo-fachportale', 'collections') }} c
+    where c.id = '{{ var("portal_root_id") }}'::uuid
 
 ), portal_tree as (
 
@@ -41,7 +44,7 @@ with processed_collections as (
           , 0       portal_depth
           , 'de-DE' spellcheck_lang
      from processed_collections c
-     where c.id = {{ portal_root_id() }}
+     where c.id = '{{ var("portal_root_id") }}'::uuid
 
      union all
 
@@ -51,9 +54,9 @@ with processed_collections as (
           , subpath(c.path, prp.nlevel - 1)         portal_path
           , nlevel(subpath(c.path, prp.nlevel - 1)) portal_depth
           , case c.id
-                {% for id, language_code in language_code_map %}
+                {%- for id, language_code in language_code_map %}
                 when '{{ id }}'::uuid then '{{ language_code }}'
-                {% endfor %}
+                {%- endfor %}
                 else 'de-DE'
             end                                     spellcheck_lang
      from processed_collections c
@@ -67,9 +70,9 @@ with processed_collections as (
           , subpath(c.path, prp.nlevel - 1)            portal_path
           , nlevel(subpath(c.path, prp.nlevel - 1))    portal_depth
           , case
-                {% for id, language_code in language_code_map %}
+                {%- for id, language_code in language_code_map %}
                 when c.path ~ txt2ltxt('*.' || '{{ id }}' || '.*')::lquery then '{{ language_code }}'
-                {% endfor %}
+                {%- endfor %}
                 else 'de-DE'
             end                                        spellcheck_lang
      from processed_collections c
@@ -81,9 +84,9 @@ with processed_collections as (
     select pt.*
          , coalesce(
             case pc.cm__title
-                {% for title, short_title in portal_title_map %}
+                {%- for title, short_title in portal_title_map %}
                 when '{{ title }}' then '{{ short_title }}'
-                {% endfor %}
+                {%- endfor %}
                 else pc.cm__title
             end,
             pc.id::text) portal_title

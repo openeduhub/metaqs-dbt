@@ -16,6 +16,9 @@ clean-targets:
   - "dbt_modules"
   - "logs"
 
+vars:
+  portal_root_id: '5e40e372-735c-4b17-bbf7-e827a5702b57'
+
 models:
   edu_sharing_com:
     staging:
