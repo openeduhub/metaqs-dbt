@@ -3,5 +3,7 @@ _seeds/
 target/
 dbt_modules/
 logs/
+docker-compose.override.yml
 .idea/
+__pycache__/
 **/.DS_Store

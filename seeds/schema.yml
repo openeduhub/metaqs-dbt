@@ -4,66 +4,35 @@ seeds:
 
   - name: 01.raw_collections
     config:
+      enabled: false
       alias: collections
       column_types:
         id: uuid
-        path: ltree
         doc: jsonb
-        created_at: timestamp
       post-hook:
-        - "alter table {{ target.schema }}_raw.collections add primary key (id)"
-        - "
-          create index if not exists collections_path_idx
-            on {{ target.schema }}_raw.collections
-              using gist (path gist_ltree_ops( siglen= 100))
-          "
+        - "alter table raw.collections add primary key (id)"
 
   - name: 02.raw_materials
     config:
+      enabled: false
       alias: materials
       column_types:
         id: uuid
-        cm__created: timestamp
-        cm__modified: timestamp
         doc: jsonb
-        created_at: timestamp
       post-hook:
-        - "alter table {{ target.schema }}_raw.materials add primary key (id)"
+        - "alter table raw.materials add primary key (id)"
 
-  - name: 03.raw_collection_material
+  - name: 03.spellcheck
     config:
-      alias: collection_material
-      column_types:
-        collection_id: uuid
-        material_id: uuid
-        created_at: timestamp
-      post-hook:
-        - "
-          alter table {{ target.schema }}_raw.collection_material
-            add constraint fk_collection_id foreign key (collection_id)
-              references {{ target.schema }}_raw.collections (id)
-                on delete cascade
-          "
-        - "
-          alter table {{ target.schema }}_raw.collection_material
-            add constraint fk_material_id foreign key (material_id)
-              references {{ target.schema }}_raw.materials (id)
-                on delete cascade
-          "
-        - "
-          create index if not exists collection_material_collection_id_idx
-            on {{ target.schema }}_raw.collection_material (collection_id)
-          "
-        - "
-          create index if not exists collection_material_material_id_idx
-            on {{ target.schema }}_raw.collection_material (material_id)
-          "
-        - "
-          create index if not exists collection_material_collection_id_material_id_idx
-            on {{ target.schema }}_raw.collection_material (collection_id, material_id)
-          "
-
-  - name: 04.raw_spellcheck
-    config:
-      enabled: false
+      enabled: true
       alias: spellcheck
+      schema: store
+      column_types:
+        resource_id: uuid
+        resource_field: text
+        resource_type: text
+        text_content: text
+        derived_at: timestamp
+        error: jsonb
+      post-hook:
+        - "alter table store.spellcheck add primary key (resource_id, resource_field)"

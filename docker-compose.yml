@@ -3,7 +3,7 @@ version: "3.8"
 networks:
   default:
     external: true
-    name: superset_default
+    name: core_backend
 
 services:
 
@@ -12,27 +12,30 @@ services:
     image: community.docker.edu-sharing.com/dbt:latest
     container_name: dbt
     environment:
-      - DB_HOST=superset_db
-      - DB_PORT=5432
-      - DB_USER=superset
-      - DB_PASSWORD=superset
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=analytics
     ports:
-      - "8001:8001"
+      - "8580:8580"
     volumes:
       - ./:/dbt
+    command: [ "dbt", "rpc" ]
 
-  dbt-docs:
-    image: community.docker.edu-sharing.com/dbt:latest
-    container_name: dbt-docs
-    environment:
-      - DB_HOST=superset_db
-      - DB_PORT=5432
-      - DB_USER=superset
-      - DB_PASSWORD=superset
-    volumes:
-      - ./:/dbt
-    entrypoint:
-      - /bin/sh
-      - -c
-    command:
-      - dbt docs generate && dbt docs serve
+#  dbt-docs:
+#    image: community.docker.edu-sharing.com/dbt:latest
+#    container_name: dbt-docs
+#    environment:
+#      - POSTGRES_HOST=postgres
+#      - POSTGRES_PORT=5432
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_DB=analytics
+#    volumes:
+#      - ./:/dbt
+#    entrypoint:
+#      - /bin/sh
+#      - -c
+#    command:
+#      - dbt docs generate && dbt docs serve

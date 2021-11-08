@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: collection_material_ext
+    #    description: <markdown_string>
+    config:
+      enabled: true
+
+  - name: material_counts
+    #    description: <markdown_string>
+    config:
+      enabled: true
+
+  - name: material_counts_by_missing_field
+    #    description: <markdown_string>
+    config:
+      enabled: true
+
+  - name: material_counts_by_learning_resource_type
+    #    description: <markdown_string>
+    config:
+      enabled: true

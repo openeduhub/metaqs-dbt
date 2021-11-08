@@ -1,10 +1,11 @@
-name: 'edu_sharing_com'
+name: 'wlo_fachportale'
 version: '0.1'
-profile: 'edu_sharing_com'
+profile: 'wlo_fachportale'
 config-version: 2
 require-dbt-version: ">=0.21.0"
 
 source-paths: [ "models" ]
+snapshot-paths: [ "snapshots" ]
 analysis-paths: [ "analysis" ]
 test-paths: [ "tests" ]
 data-paths: [ "seeds" ]
@@ -20,13 +21,23 @@ vars:
   portal_root_id: '5e40e372-735c-4b17-bbf7-e827a5702b57'
 
 models:
-  edu_sharing_com:
-    staging:
-      +full_refresh: true
-      materialized: table
+  +schema: staging
+  +full_refresh: true
+
+  wlo_fachportale:
+    tables:
+      +materialized: table
+    views:
+      +materialized: view
+
+snapshots:
+  +target_schema: store
+
+sources:
+  +enabled: true
 
 seeds:
-  edu_sharing_com:
-    +schema: raw
-    +full_refresh: true
-    +quote_columns: false
+  +enabled: true
+  +schema: raw
+  +full_refresh: true
+  +quote_columns: false
