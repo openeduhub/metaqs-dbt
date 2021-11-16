@@ -1,23 +1,23 @@
 select cm.collection_id
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'title' )                 title
+       filter ( where f.missing_field = 'TITLE' )                 title
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'description' )           description
+       filter ( where f.missing_field = 'DESCRIPTION' )           description
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'keywords' )              keywords
+       filter ( where f.missing_field = 'KEYWORDS' )              keywords
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'license' )               license
+       filter ( where f.missing_field = 'LICENSE' )               license
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'taxon_id' )              taxon_id
+       filter ( where f.missing_field = 'TAXON_ID' )              taxon_id
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'edu_context' )           edu_context
+       filter ( where f.missing_field = 'EDU_CONTEXT' )           edu_context
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'learning_resource_type' ) learning_resource_type
+       filter ( where f.missing_field = 'LEARNING_RESOURCE_TYPE' ) learning_resource_type
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'ads_qualifier' )         ads_qualifier
+       filter ( where f.missing_field = 'ADS_QUALIFIER' )         ads_qualifier
      , count(distinct cm.material_id)
-       filter ( where f.missing_field = 'object_type' )           object_type
+       filter ( where f.missing_field = 'OBJECT_TYPE' )           object_type
 from {{ ref('missing_fields') }} f
          join {{ ref('collection_material_ext') }} cm on cm.material_id = f.resource_id
-where f.resource_type = 'material'
+where f.resource_type = 'MATERIAL'
 group by cm.collection_id

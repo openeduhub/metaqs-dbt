@@ -5,9 +5,9 @@
 
 {% set select_collections %}
     select fresh.id                    resource_id
-         , 'collection'::resource_type resource_type
+         , 'COLLECTION'::resource_type resource_type
          , unnest(array [
-            'title'
+            'TITLE'
         ])::resource_field             resource_field
          , unnest(array [
             empty_str2null(fresh.doc -> 'properties' ->> 'cm:title')
@@ -17,9 +17,9 @@
 
 {% set select_materials %}
     select fresh.id                    resource_id
-         , 'material'::resource_type   resource_type
+         , 'MATERIAL'::resource_type   resource_type
          , unnest(array [
-            'title'
+            'TITLE'
         ])::resource_field             resource_field
          , unnest(array [
             empty_str2null(fresh.doc -> 'properties' ->> 'cclom:title')

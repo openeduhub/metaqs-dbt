@@ -19,30 +19,30 @@ def upgrade():
     conn.execute(
         """
         create type resource_type as enum (
-            'collection',
-            'material'
+            'COLLECTION',
+            'MATERIAL'
             );
         
         create type resource_field as enum (
-            'title',
-            'description',
-            'keywords',
-            'edu_context',
-            'taxon_id',
-            'learning_resource_type',
-            'license',
-            'ads_qualifier',
-            'object_type',
-            'intended_enduser_role',
-            'url',
-            'replication_source',
-            'replication_source_id'
+            'TITLE',
+            'DESCRIPTION',
+            'KEYWORDS',
+            'EDU_CONTEXT',
+            'TAXON_ID',
+            'LEARNING_RESOURCE_TYPE',
+            'LICENSE',
+            'ADS_QUALIFIER',
+            'OBJECT_TYPE',
+            'INTENDED_ENDUSER_ROLE',
+            'URL',
+            'REPLICATION_SOURCE',
+            'REPLICATION_SOURCE_ID'
             );
         
         create type validation_error as enum (
-            'too_few',
-            'too_short',
-            'lacks_clarity'
+            'TOO_FEW',
+            'TOO_SHORT',
+            'LACKS_CLARity'
             );
         """
     )
