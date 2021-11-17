@@ -31,7 +31,7 @@ with processed_paths as (
 ), final as (
 
     select c.*
-         , coalesce(c.title, c.id::text) portal_title
+         , coalesce(c2.title, c2.id::text) portal_title
     from processed_collections c
         join processed_collections c2 on c2.id = c.portal_id
 
