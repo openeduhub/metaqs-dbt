@@ -9,7 +9,7 @@ services:
 
   dbt:
     build: ./
-    image: community.docker.edu-sharing.com/dbt:latest
+    image: community.docker.edu-sharing.com/metaqs-dbt:latest
     container_name: dbt
     environment:
       - POSTGRES_HOST=postgres
