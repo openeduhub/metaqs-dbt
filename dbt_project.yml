@@ -22,13 +22,8 @@ vars:
 
 models:
   +schema: staging
+  +materialized: table
   +full_refresh: true
-
-  wlo_fachportale:
-    tables:
-      +materialized: table
-    views:
-      +materialized: view
 
 snapshots:
   +target_schema: store
