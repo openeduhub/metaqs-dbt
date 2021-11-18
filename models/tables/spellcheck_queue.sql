@@ -7,10 +7,12 @@
     select fresh.id                    resource_id
          , 'COLLECTION'::resource_type resource_type
          , unnest(array [
-            'TITLE'
+            'TITLE',
+            'DESCRIPTION'
         ])::resource_field             resource_field
          , unnest(array [
             empty_str2null(fresh.doc -> 'properties' ->> 'cm:title')
+          , empty_str2null(fresh.doc -> 'properties' ->> 'cm:description')
         ])                             text_content
          , fresh.derived_at
 {% endset %}
