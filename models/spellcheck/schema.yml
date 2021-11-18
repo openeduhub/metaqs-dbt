@@ -1,12 +1,6 @@
 version: 2
 
 models:
-  - name: spellcheck_queue
-    #    description: <markdown_string>
-    config:
-      enabled: true
-      materialized: table
-
   - name: spellcheck
     #    description: <markdown_string>
     config:

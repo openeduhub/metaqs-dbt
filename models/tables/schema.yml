@@ -69,6 +69,17 @@ models:
               )
           "
 
+  - name: spellcheck_queue
+    #    description: <markdown_string>
+    config:
+      enabled: true
+    columns:
+      - { name: resource_id, data_type: uuid }
+      - { name: resource_type, data_type: resource_type }
+      - { name: resource_field, data_type: resource_field }
+      - { name: text_content, data_type: text }
+      - { name: derived_at, data_type: timestamp }
+
   - name: missing_fields
     #    description: <markdown_string>
     config:
