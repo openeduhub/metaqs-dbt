@@ -11,3 +11,8 @@ models:
     #    description: <markdown_string>
     config:
       enabled: true
+
+  - name: material_counts_by_error_field
+    #    description: <markdown_string>
+    config:
+      enabled: true
