@@ -16,7 +16,7 @@ with s1 as (
 
 )
 
-select c.id
+select c.id                         collection_id
      , c.portal_title
      , coalesce(agg.title, 0)       title
      , coalesce(agg.description, 0) description
