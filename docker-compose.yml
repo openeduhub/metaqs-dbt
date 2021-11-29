@@ -1,37 +1,35 @@
-version: "3.8"
+version: "3.9"
 
 networks:
   default:
     external: true
-    name: core_backend
+    name: metaqs_backend
+
+x-postgres-vars: &postgres-vars
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: analytics
 
 services:
-
   dbt:
     build: ./
     image: community.docker.edu-sharing.com/metaqs-dbt:latest
-    container_name: dbt
+    container_name: metaqs-dbt
     environment:
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=analytics
+      <<: *postgres-vars
     ports:
-      - "8580:8580"
+      - "127.0.0.1:${DBT_PORT:-8580}:8580"
     volumes:
       - ./:/dbt
     command: [ "dbt", "rpc" ]
 
 #  dbt-docs:
-#    image: community.docker.edu-sharing.com/dbt:latest
-#    container_name: dbt-docs
+#    image: community.docker.edu-sharing.com/metaqs-dbt:latest
+#    container_name: metaqs-dbt-docs
 #    environment:
-#      - POSTGRES_HOST=postgres
-#      - POSTGRES_PORT=5432
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_PASSWORD=postgres
-#      - POSTGRES_DB=analytics
+#      <<: *postgres-vars
 #    volumes:
 #      - ./:/dbt
 #    entrypoint:
