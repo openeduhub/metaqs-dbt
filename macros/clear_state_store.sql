@@ -2,6 +2,7 @@
 
 {% set sql %}
 truncate {{ source('languagetool', 'spellcheck') }};
+truncate {{ source('elastic_wlo', 'search_stats') }};
 {% endset %}
 
 {% do run_query(sql) %}

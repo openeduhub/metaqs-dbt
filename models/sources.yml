@@ -8,6 +8,8 @@ sources:
       - name: materials
       - name: collections_previous_run
       - name: materials_previous_run
+      - name: search_stats
+        schema: store
 
   - name: languagetool
     schema: store
