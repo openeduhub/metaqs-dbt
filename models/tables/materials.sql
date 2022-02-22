@@ -7,7 +7,7 @@ select m.id
      , empty_jsonb_array2null(m.doc -> 'properties' -> 'ccm:commonlicense_key')               license
      , empty_str2null(m.doc -> 'properties' ->> 'ccm:objecttype')                             object_type
      , empty_str2null(m.doc -> 'properties' ->> 'ccm:containsAdvertisement')                  ads_qualifier
-     , empty_jsonb_array2null(m.doc -> 'properties' -> 'ccm:educationallearningresourcetype') learning_resource_type
+     , empty_jsonb_array2null(m.doc -> 'properties' -> 'ccm:oeh_lrt_aggregated') learning_resource_type
      , empty_jsonb_array2null(m.doc -> 'properties' -> 'ccm:educationalintendedenduserrole')  intended_enduser_role
      , empty_str2null(m.doc -> 'properties' ->> 'ccm:wwwurl')                                 url
      , empty_str2null(m.doc -> 'properties' ->> 'ccm:replicationsource')                      replication_source

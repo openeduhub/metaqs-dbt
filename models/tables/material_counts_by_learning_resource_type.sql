@@ -17,7 +17,7 @@ with stacked as (
 ), final as (
 
     select counts.*
-         , shorten_vocab(learning_resource_type, 'learningResourceType') short_learning_resource_type
+         , shorten_vocab(learning_resource_type, 'oeh_lrt_aggregated') short_learning_resource_type
     from counts
 
 )
